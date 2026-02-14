@@ -1,136 +1,342 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Valentine’s Day</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine's Day</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Georgia', serif;
-}
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(to bottom, 
+                rgba(255, 240, 245, 0.9) 0%,
+                rgba(255, 220, 230, 0.95) 30%,
+                rgba(255, 180, 200, 1) 70%,
+                rgba(220, 20, 60, 1) 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            position: relative;
+            overflow: hidden;
+        }
 
-body {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(to bottom, #ffffff 30%, #ff1a1a 100%);
-    overflow: hidden;
-    text-align: center;
-    padding: 20px;
-}
+        .container {
+            max-width: 700px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
 
-.container {
-    max-width: 750px;
-    color: #1a1a1a;
-    position: relative;
-    z-index: 2;
-}
+        #text-content {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #2c1810;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+            min-height: 500px;
+        }
 
-.text {
-    font-size: 20px;
-    line-height: 1.9;
-    white-space: pre-line;
-}
+        #text-content p {
+            margin-bottom: 20px;
+        }
 
-.footer {
-    margin-top: 40px;
-    font-size: 22px;
-    color: white;
-    font-weight: bold;
-    opacity: 0;
-    transition: opacity 2s ease;
-}
+        .highlight {
+            font-weight: bold;
+            font-style: italic;
+        }
 
-/* Floating elements */
-.floating {
-    position: absolute;
-    animation: float linear infinite;
-    pointer-events: none;
-    z-index: 1;
-}
+        .love-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #c41e3a;
+            margin: 25px 0;
+        }
 
-@keyframes float {
-    from {
-        transform: translateY(100vh) rotate(0deg);
-        opacity: 1;
-    }
-    to {
-        transform: translateY(-10vh) rotate(360deg);
-        opacity: 0;
-    }
-}
-</style>
+        .final-message {
+            font-size: 22px;
+            font-style: italic;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-top: 30px;
+            font-family: 'Brush Script MT', cursive;
+        }
+
+        /* Floating roses */
+        .rose {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle, #8b0000, #dc143c);
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(45deg);
+            opacity: 0.8;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .rose::before,
+        .rose::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle, #8b0000, #dc143c);
+            border-radius: 50%;
+        }
+
+        .rose::before {
+            left: -25px;
+        }
+
+        .rose::after {
+            top: -25px;
+        }
+
+        .rose-dark {
+            background: radial-gradient(circle, #1a0000, #4a0000);
+        }
+
+        .rose-dark::before,
+        .rose-dark::after {
+            background: radial-gradient(circle, #1a0000, #4a0000);
+        }
+
+        /* Floating hearts */
+        .heart {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            animation: float 12s infinite ease-in-out;
+            opacity: 0.7;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 30px 30px 0 0;
+        }
+
+        .heart::before {
+            left: -15px;
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+        }
+
+        .heart::after {
+            left: 0;
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
+
+        .heart-red::before,
+        .heart-red::after {
+            background: rgba(255, 100, 120, 0.8);
+        }
+
+        /* Petals */
+        .petal {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: rgba(220, 20, 60, 0.6);
+            border-radius: 50% 0;
+            animation: fall 10s infinite ease-in;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(45deg);
+            }
+            25% {
+                transform: translateY(-30px) rotate(50deg);
+            }
+            50% {
+                transform: translateY(-15px) rotate(40deg);
+            }
+            75% {
+                transform: translateY(-40px) rotate(55deg);
+            }
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Cursor effect */
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.2em;
+            background-color: #2c1810;
+            animation: blink 0.8s infinite;
+            margin-left: 2px;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+            0%, 50% {
+                opacity: 1;
+            }
+            51%, 100% {
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            #text-content {
+                font-size: 16px;
+            }
+            
+            .love-text {
+                font-size: 20px;
+            }
+            
+            .final-message {
+                font-size: 18px;
+            }
+        }
+    </style>
 </head>
-
 <body>
+    <!-- Roses -->
+    <div class="rose" style="top: 5%; left: 8%; animation-delay: 0s;"></div>
+    <div class="rose-dark rose" style="top: 12%; left: 15%; animation-delay: 2s;"></div>
+    <div class="rose" style="top: 8%; right: 12%; animation-delay: 1s;"></div>
+    <div class="rose-dark rose" style="top: 15%; right: 8%; animation-delay: 3s;"></div>
+    <div class="rose" style="top: 40%; left: 5%; animation-delay: 1.5s;"></div>
+    <div class="rose-dark rose" style="top: 45%; right: 6%; animation-delay: 2.5s;"></div>
+    <div class="rose" style="bottom: 25%; left: 10%; animation-delay: 3.5s;"></div>
+    <div class="rose-dark rose" style="bottom: 30%; right: 12%; animation-delay: 4s;"></div>
 
-<div class="container">
-    <div id="message" class="text"></div>
-    <div id="footer" class="footer">
-        Happy Valentine’s Day My Akudo ❤️
+    <!-- Hearts -->
+    <div class="heart" style="top: 20%; left: 25%; animation-delay: 0.5s;"></div>
+    <div class="heart heart-red" style="top: 60%; left: 18%; animation-delay: 1.5s;"></div>
+    <div class="heart" style="top: 25%; right: 22%; animation-delay: 2s;"></div>
+    <div class="heart heart-red" style="bottom: 35%; right: 20%; animation-delay: 3s;"></div>
+    <div class="heart" style="bottom: 40%; left: 15%; animation-delay: 2.5s;"></div>
+
+    <!-- Petals -->
+    <div class="petal" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="petal" style="left: 30%; animation-delay: 2s;"></div>
+    <div class="petal" style="left: 50%; animation-delay: 4s;"></div>
+    <div class="petal" style="left: 70%; animation-delay: 1s;"></div>
+    <div class="petal" style="left: 85%; animation-delay: 3s;"></div>
+    <div class="petal" style="left: 20%; animation-delay: 5s;"></div>
+    <div class="petal" style="left: 60%; animation-delay: 6s;"></div>
+    <div class="petal" style="left: 40%; animation-delay: 7s;"></div>
+
+    <div class="container">
+        <div id="text-content"></div>
     </div>
-</div>
 
-<script>
+    <script>
+        const text = `Hi…
 
-const text = `Hi…
+I know it's Valentine's Day, and we never really made a big deal out of it when we were together. But today feels "heavier" than I expected.
 
-I know it’s Valentine’s Day, and we never really made a big deal out of it when we were together. But today feels “heavier” than I expected.
+I miss you. Not just today, i miss you every day, every single day and you know It's the quiet moments that hurt the most and the random thoughts of you popping up from nowhere.
 
-I miss you. Not just today, I miss you every day, every single day. It’s the quiet moments that hurt the most and the random thoughts of you popping up from nowhere.
+The memories that come in form of flashbacks and sometimes what I believe could've been my future, our future…. Some days I handle it well… other days it just overwhelms me.
 
-The memories that come in form of flashbacks and sometimes what I believe could’ve been my future… our future. Some days I handle it well… other days it just overwhelms me.
+I'm not doing this to reopen old wounds or make things complicated. I just couldn't let today pass without telling you something that's still true for me.
 
-I’m not doing this to reopen old wounds or make things complicated. I just couldn’t let today pass without telling you something that’s still true for me.
+<love>I love you.</love>
 
-I love you.
+And no matter where we stand now, I genuinely hope today brings you warmth, love, and happiness.
 
-And no matter where we stand now, I genuinely hope today brings you warmth, love, and happiness.`;
+<final>Happy Valentine's Day My Akudo ❤️</final>`;
 
-let i = 0;
-const speed = 60; // Slower typing (increase for slower)
-const messageDiv = document.getElementById("message");
-const footer = document.getElementById("footer");
+        const contentDiv = document.getElementById('text-content');
+        let index = 0;
+        let currentP = document.createElement('p');
+        contentDiv.appendChild(currentP);
 
-function typeWriter() {
-    if (i < text.length) {
-        messageDiv.innerHTML += text.charAt(i);
-        i++;
-        setTimeout(typeWriter, speed);
-    } else {
-        footer.style.opacity = 1; // Reveal footer after typing
-    }
-}
+        function typeText() {
+            if (index < text.length) {
+                const char = text[index];
+                
+                // Handle special tags
+                if (text.substr(index, 6) === '<love>') {
+                    const loveP = document.createElement('p');
+                    loveP.className = 'love-text';
+                    contentDiv.appendChild(loveP);
+                    currentP = loveP;
+                    index += 6;
+                    typeText();
+                    return;
+                } else if (text.substr(index, 7) === '</love>') {
+                    currentP = document.createElement('p');
+                    contentDiv.appendChild(currentP);
+                    index += 7;
+                    typeText();
+                    return;
+                } else if (text.substr(index, 7) === '<final>') {
+                    const finalP = document.createElement('p');
+                    finalP.className = 'final-message';
+                    contentDiv.appendChild(finalP);
+                    currentP = finalP;
+                    index += 7;
+                    typeText();
+                    return;
+                } else if (text.substr(index, 8) === '</final>') {
+                    index += 8;
+                    typeText();
+                    return;
+                }
+                
+                // Handle new paragraphs
+                if (char === '\n' && text[index + 1] === '\n') {
+                    currentP = document.createElement('p');
+                    contentDiv.appendChild(currentP);
+                    index += 2;
+                } else if (char === '\n') {
+                    currentP.appendChild(document.createElement('br'));
+                    index++;
+                } else {
+                    currentP.appendChild(document.createTextNode(char));
+                    index++;
+                }
+                
+                // Add cursor
+                const cursor = document.createElement('span');
+                cursor.className = 'cursor';
+                currentP.appendChild(cursor);
+                
+                setTimeout(() => {
+                    cursor.remove();
+                    typeText();
+                }, 50); // Typing speed
+            }
+        }
 
-typeWriter();
-
-/* Floating hearts & roses */
-const symbols = ["❤️", "🌹", "🖤🌹"];
-
-function createFloating() {
-    const element = document.createElement("div");
-    element.classList.add("floating");
-    element.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
-
-    element.style.left = Math.random() * 100 + "vw";
-    element.style.fontSize = (Math.random() * 25 + 20) + "px";
-    element.style.animationDuration = (Math.random() * 5 + 6) + "s";
-
-    document.body.appendChild(element);
-
-    setTimeout(() => {
-        element.remove();
-    }, 10000);
-}
-
-setInterval(createFloating, 600);
-
-</script>
-
+        // Start typing after a brief delay
+        setTimeout(typeText, 500);
+    </script>
 </body>
 </html>
