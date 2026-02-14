@@ -1,161 +1,130 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Akudo</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@0,400;1,500&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Valentine’s Day</title>
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Georgia', serif;
+    }
 
-        body {
-            /* Exact gradient from your reference image */
-            background: radial-gradient(circle, #ffffff 0%, #f9dcdc 30%, #e63946 80%, #9b1c1c 100%);
-            background-attachment: fixed;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Playfair Display', serif;
-            overflow-x: hidden;
-            color: #331111;
-            padding: 20px;
-        }
+    body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(to bottom, #ffffff 40%, #ff2d2d 100%);
+        overflow: hidden;
+        text-align: center;
+        padding: 20px;
+    }
 
-        /* Responsive Container */
-        .letter-box {
-            position: relative;
-            z-index: 10;
-            width: 100%;
-            max-width: 500px; /* Constrains width so it looks like a card on phone */
-            text-align: center;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(8px);
-            padding: 30px 20px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
+    .container {
+        max-width: 700px;
+        color: #222;
+        position: relative;
+        z-index: 2;
+    }
 
-        #typewriter {
-            font-size: clamp(1rem, 4vw, 1.25rem); /* Dynamic font size for mobile */
-            line-height: 1.7;
-            word-spacing: 2px;
-        }
+    .text {
+        font-size: 18px;
+        line-height: 1.8;
+        white-space: pre-line;
+    }
 
-        /* Word-by-word animation */
-        .word {
-            display: inline-block;
-            opacity: 0;
-            filter: blur(5px);
-            transform: translateY(10px);
-            transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-            margin-right: 4px;
-        }
+    .highlight {
+        font-size: 22px;
+        margin: 20px 0;
+        color: #c40000;
+        font-weight: bold;
+    }
 
-        .word.visible {
+    .footer {
+        margin-top: 30px;
+        font-size: 20px;
+        color: #fff;
+        font-weight: bold;
+    }
+
+    /* Floating hearts */
+    .heart {
+        position: absolute;
+        color: rgba(255,0,0,0.5);
+        font-size: 20px;
+        animation: float 8s linear infinite;
+    }
+
+    @keyframes float {
+        from {
+            transform: translateY(100vh) scale(1);
             opacity: 1;
-            filter: blur(0);
-            transform: translateY(0);
         }
-
-        .highlight-love {
-            display: block;
-            font-family: 'Dancing Script', cursive;
-            font-size: 2.2rem;
-            color: #b91d1d;
-            margin: 15px 0;
+        to {
+            transform: translateY(-10vh) scale(1.5);
+            opacity: 0;
         }
-
-        .signature {
-            display: block;
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.8rem;
-            margin-top: 30px;
-            color: #b91d1d;
-        }
-
-        /* Decorative Elements */
-        .decor {
-            position: fixed;
-            pointer-events: none;
-            z-index: 1;
-            user-select: none;
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
-        }
-
-        @keyframes float {
-            0% { transform: translateY(110vh) rotate(0deg) scale(0.8); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-10vh) rotate(360deg) scale(1.1); opacity: 0; }
-        }
-    </style>
+    }
+</style>
 </head>
+
 <body>
 
-    <div class="letter-box">
-        <div id="typewriter"></div>
-    </div>
+<div class="container">
+    <div id="message" class="text"></div>
+    <div class="footer">Happy Valentine’s Day My Akudo ❤️</div>
+</div>
 
-    <script>
-        const message = "Hi… <br><br> I know it’s Valentine’s Day, and we never really made a big deal out of it when we were together. But today feels “heavier” than I expected. <br><br> I miss you. Not just today, I miss you every single day. It’s the quiet moments that hurt the most. The random thoughts of you. The memories that show up uninvited and without a warning. Some days I handle it well… other days it overwhelms me. <br><br> I’m not doing this to reopen old wounds or make things complicated. I just couldn’t let today pass without telling you something that’s still true for me. <br><br> <span class='highlight-love'>I love you.</span> <br><br> And no matter where we stand now, I genuinely hope today brings you warmth, love, and happiness. <br><br> <span class='signature'>Happy Valentine’s Day My Akudo ❤️</span>";
+<script>
+const text = `Hi…
 
-        const container = document.getElementById('typewriter');
-        
-        // Process message into words and breaks
-        const parts = message.split(/(\s+|<br>|<span.*?>|<\/span>)/).filter(p => p.trim() !== '' || p === ' ');
+I know it’s Valentine’s Day, and we never really made a big deal out of it when we were together. But today feels “heavier” than I expected.
 
-        parts.forEach(part => {
-            if (part === '<br>') {
-                container.appendChild(document.createElement('br'));
-            } else if (part.includes('<span')) {
-                // Pass through
-            } else if (part.includes('</span')) {
-                // Pass through
-            } else {
-                const span = document.createElement('span');
-                span.className = 'word';
-                // Apply cursive if it belongs to a special section
-                if (message.includes(`highlight-love'>${part}`) || message.includes(`signature'>${part}`)) {
-                    span.style.fontFamily = "'Dancing Script', cursive";
-                    span.style.fontSize = "2rem";
-                    span.style.color = "#b91d1d";
-                }
-                span.innerText = part;
-                container.appendChild(span);
-            }
-        });
+I miss you. Not just today, I miss you every day, every single day. It’s the quiet moments that hurt the most and the random thoughts of you popping up from nowhere.
 
-        const wordSpans = document.querySelectorAll('.word');
-        let index = 0;
+The memories that come in form of flashbacks and sometimes what I believe could’ve been my future… our future. Some days I handle it well… other days it just overwhelms me.
 
-        function showNextWord() {
-            if (index < wordSpans.length) {
-                wordSpans[index].classList.add('visible');
-                index++;
-                setTimeout(showNextWord, 200); // 200ms per word for natural reading
-            }
-        }
+I’m not doing this to reopen old wounds or make things complicated. I just couldn’t let today pass without telling you something that’s still true for me.
 
-        // Falling Decor: Hearts, Red Roses, Black Roses
-        function spawnDecor() {
-            const decor = document.createElement('div');
-            decor.className = 'decor';
-            const items = ['❤️', '🌹', '🖤', '🥀', '🤍', '💖'];
-            decor.innerText = items[Math.floor(Math.random() * items.length)];
-            
-            decor.style.left = Math.random() * 100 + 'vw';
-            decor.style.fontSize = (Math.random() * 20 + 20) + 'px';
-            decor.style.animation = `float ${Math.random() * 5 + 7}s linear forwards`;
-            
-            document.body.appendChild(decor);
-            setTimeout(() => decor.remove(), 12000);
-        }
+I love you.
 
-        setInterval(spawnDecor, 400);
-        window.onload = showNextWord;
-    </script>
+And no matter where we stand now, I genuinely hope today brings you warmth, love, and happiness.`;
+
+let i = 0;
+const speed = 35; 
+const messageDiv = document.getElementById("message");
+
+function typeWriter() {
+    if (i < text.length) {
+        messageDiv.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+    }
+}
+
+typeWriter();
+
+/* Create floating hearts */
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+    heart.style.animationDuration = (Math.random() * 5 + 5) + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 8000);
+}
+
+setInterval(createHeart, 500);
+</script>
+
 </body>
 </html>
