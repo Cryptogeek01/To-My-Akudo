@@ -6,69 +6,64 @@
 <title>Happy Valentine’s Day</title>
 
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Georgia', serif;
-    }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Georgia', serif;
+}
 
-    body {
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: linear-gradient(to bottom, #ffffff 40%, #ff2d2d 100%);
-        overflow: hidden;
-        text-align: center;
-        padding: 20px;
-    }
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom, #ffffff 30%, #ff1a1a 100%);
+    overflow: hidden;
+    text-align: center;
+    padding: 20px;
+}
 
-    .container {
-        max-width: 700px;
-        color: #222;
-        position: relative;
-        z-index: 2;
-    }
+.container {
+    max-width: 750px;
+    color: #1a1a1a;
+    position: relative;
+    z-index: 2;
+}
 
-    .text {
-        font-size: 18px;
-        line-height: 1.8;
-        white-space: pre-line;
-    }
+.text {
+    font-size: 20px;
+    line-height: 1.9;
+    white-space: pre-line;
+}
 
-    .highlight {
-        font-size: 22px;
-        margin: 20px 0;
-        color: #c40000;
-        font-weight: bold;
-    }
+.footer {
+    margin-top: 40px;
+    font-size: 22px;
+    color: white;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 2s ease;
+}
 
-    .footer {
-        margin-top: 30px;
-        font-size: 20px;
-        color: #fff;
-        font-weight: bold;
-    }
+/* Floating elements */
+.floating {
+    position: absolute;
+    animation: float linear infinite;
+    pointer-events: none;
+    z-index: 1;
+}
 
-    /* Floating hearts */
-    .heart {
-        position: absolute;
-        color: rgba(255,0,0,0.5);
-        font-size: 20px;
-        animation: float 8s linear infinite;
+@keyframes float {
+    from {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 1;
     }
-
-    @keyframes float {
-        from {
-            transform: translateY(100vh) scale(1);
-            opacity: 1;
-        }
-        to {
-            transform: translateY(-10vh) scale(1.5);
-            opacity: 0;
-        }
+    to {
+        transform: translateY(-10vh) rotate(360deg);
+        opacity: 0;
     }
+}
 </style>
 </head>
 
@@ -76,10 +71,13 @@
 
 <div class="container">
     <div id="message" class="text"></div>
-    <div class="footer">Happy Valentine’s Day My Akudo ❤️</div>
+    <div id="footer" class="footer">
+        Happy Valentine’s Day My Akudo ❤️
+    </div>
 </div>
 
 <script>
+
 const text = `Hi…
 
 I know it’s Valentine’s Day, and we never really made a big deal out of it when we were together. But today feels “heavier” than I expected.
@@ -95,35 +93,43 @@ I love you.
 And no matter where we stand now, I genuinely hope today brings you warmth, love, and happiness.`;
 
 let i = 0;
-const speed = 35; 
+const speed = 60; // Slower typing (increase for slower)
 const messageDiv = document.getElementById("message");
+const footer = document.getElementById("footer");
 
 function typeWriter() {
     if (i < text.length) {
         messageDiv.innerHTML += text.charAt(i);
         i++;
         setTimeout(typeWriter, speed);
+    } else {
+        footer.style.opacity = 1; // Reveal footer after typing
     }
 }
 
 typeWriter();
 
-/* Create floating hearts */
-function createHeart() {
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML = "❤️";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = (Math.random() * 20 + 15) + "px";
-    heart.style.animationDuration = (Math.random() * 5 + 5) + "s";
-    document.body.appendChild(heart);
+/* Floating hearts & roses */
+const symbols = ["❤️", "🌹", "🖤🌹"];
+
+function createFloating() {
+    const element = document.createElement("div");
+    element.classList.add("floating");
+    element.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+
+    element.style.left = Math.random() * 100 + "vw";
+    element.style.fontSize = (Math.random() * 25 + 20) + "px";
+    element.style.animationDuration = (Math.random() * 5 + 6) + "s";
+
+    document.body.appendChild(element);
 
     setTimeout(() => {
-        heart.remove();
-    }, 8000);
+        element.remove();
+    }, 10000);
 }
 
-setInterval(createHeart, 500);
+setInterval(createFloating, 600);
+
 </script>
 
 </body>
