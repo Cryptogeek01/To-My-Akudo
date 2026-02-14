@@ -2,189 +2,81 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Happy Valentine's Day</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Georgia', 'Times New Roman', serif;
+            font-family: 'Georgia', serif;
             background: linear-gradient(to bottom, 
-                rgba(255, 240, 245, 0.9) 0%,
-                rgba(255, 220, 230, 0.95) 30%,
-                rgba(255, 180, 200, 1) 70%,
-                rgba(220, 20, 60, 1) 100%);
+                #fff0f5 0%,
+                #ffdce6 30%,
+                #ffb4c8 70%,
+                #dc143c 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 40px 20px;
+            padding: 20px;
             position: relative;
             overflow: hidden;
         }
 
         .container {
-            max-width: 700px;
+            max-width: 600px;
             width: 100%;
             text-align: center;
             position: relative;
             z-index: 10;
-            padding: 40px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border-radius: 20px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
 
         #text-content {
-            font-size: 18px;
+            font-size: 1.1rem;
             line-height: 1.8;
             color: #2c1810;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
-            min-height: 500px;
-        }
-
-        #text-content p {
-            margin-bottom: 20px;
-        }
-
-        .highlight {
-            font-weight: bold;
-            font-style: italic;
+            min-height: 400px;
         }
 
         .love-text {
-            font-size: 24px;
+            font-size: 1.8rem;
             font-weight: bold;
             color: #c41e3a;
             margin: 25px 0;
+            display: block;
         }
 
         .final-message {
-            font-size: 22px;
+            font-size: 1.6rem;
             font-style: italic;
             color: #fff;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
             margin-top: 30px;
             font-family: 'Brush Script MT', cursive;
+            display: block;
         }
 
-        /* Floating roses */
-        .rose {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            background: radial-gradient(circle, #8b0000, #dc143c);
-            border-radius: 50% 50% 50% 0;
-            transform: rotate(45deg);
-            opacity: 0.8;
-            animation: float 15s infinite ease-in-out;
-        }
-
-        .rose::before,
-        .rose::after {
-            content: '';
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            background: radial-gradient(circle, #8b0000, #dc143c);
-            border-radius: 50%;
-        }
-
-        .rose::before {
-            left: -25px;
-        }
-
-        .rose::after {
-            top: -25px;
-        }
-
-        .rose-dark {
-            background: radial-gradient(circle, #1a0000, #4a0000);
-        }
-
-        .rose-dark::before,
-        .rose-dark::after {
-            background: radial-gradient(circle, #1a0000, #4a0000);
-        }
-
-        /* Floating hearts */
-        .heart {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            animation: float 12s infinite ease-in-out;
-            opacity: 0.7;
-        }
-
-        .heart::before,
-        .heart::after {
-            content: '';
-            position: absolute;
-            width: 30px;
-            height: 48px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 30px 30px 0 0;
-        }
-
-        .heart::before {
-            left: -15px;
-            transform: rotate(-45deg);
-            transform-origin: 0 100%;
-        }
-
-        .heart::after {
-            left: 0;
-            transform: rotate(45deg);
-            transform-origin: 100% 100%;
-        }
-
-        .heart-red::before,
-        .heart-red::after {
-            background: rgba(255, 100, 120, 0.8);
-        }
-
-        /* Petals */
+        /* Falling Petals */
         .petal {
             position: absolute;
-            width: 15px;
-            height: 15px;
-            background: rgba(220, 20, 60, 0.6);
-            border-radius: 50% 0;
-            animation: fall 10s infinite ease-in;
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0) rotate(45deg);
-            }
-            25% {
-                transform: translateY(-30px) rotate(50deg);
-            }
-            50% {
-                transform: translateY(-15px) rotate(40deg);
-            }
-            75% {
-                transform: translateY(-40px) rotate(55deg);
-            }
+            top: -20px;
+            background-color: #ff4d6d;
+            border-radius: 150% 0 150% 0;
+            opacity: 0.7;
+            pointer-events: none;
+            animation: fall linear infinite;
         }
 
         @keyframes fall {
-            0% {
-                transform: translateY(-100px) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 0;
-            }
+            to { transform: translateY(110vh) rotate(360deg); }
         }
 
-        /* Cursor effect */
         .cursor {
             display: inline-block;
             width: 2px;
@@ -195,61 +87,17 @@
             vertical-align: middle;
         }
 
-        @keyframes blink {
-            0%, 50% {
-                opacity: 1;
-            }
-            51%, 100% {
-                opacity: 0;
-            }
-        }
+        @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
 
-        @media (max-width: 768px) {
-            .container {
-                padding: 30px 20px;
-            }
-            
-            #text-content {
-                font-size: 16px;
-            }
-            
-            .love-text {
-                font-size: 20px;
-            }
-            
-            .final-message {
-                font-size: 18px;
-            }
+        @media (max-width: 480px) {
+            .container { padding: 20px; }
+            #text-content { font-size: 1rem; }
+            .love-text { font-size: 1.5rem; }
+            .final-message { font-size: 1.4rem; }
         }
     </style>
 </head>
 <body>
-    <!-- Roses -->
-    <div class="rose" style="top: 5%; left: 8%; animation-delay: 0s;"></div>
-    <div class="rose-dark rose" style="top: 12%; left: 15%; animation-delay: 2s;"></div>
-    <div class="rose" style="top: 8%; right: 12%; animation-delay: 1s;"></div>
-    <div class="rose-dark rose" style="top: 15%; right: 8%; animation-delay: 3s;"></div>
-    <div class="rose" style="top: 40%; left: 5%; animation-delay: 1.5s;"></div>
-    <div class="rose-dark rose" style="top: 45%; right: 6%; animation-delay: 2.5s;"></div>
-    <div class="rose" style="bottom: 25%; left: 10%; animation-delay: 3.5s;"></div>
-    <div class="rose-dark rose" style="bottom: 30%; right: 12%; animation-delay: 4s;"></div>
-
-    <!-- Hearts -->
-    <div class="heart" style="top: 20%; left: 25%; animation-delay: 0.5s;"></div>
-    <div class="heart heart-red" style="top: 60%; left: 18%; animation-delay: 1.5s;"></div>
-    <div class="heart" style="top: 25%; right: 22%; animation-delay: 2s;"></div>
-    <div class="heart heart-red" style="bottom: 35%; right: 20%; animation-delay: 3s;"></div>
-    <div class="heart" style="bottom: 40%; left: 15%; animation-delay: 2.5s;"></div>
-
-    <!-- Petals -->
-    <div class="petal" style="left: 10%; animation-delay: 0s;"></div>
-    <div class="petal" style="left: 30%; animation-delay: 2s;"></div>
-    <div class="petal" style="left: 50%; animation-delay: 4s;"></div>
-    <div class="petal" style="left: 70%; animation-delay: 1s;"></div>
-    <div class="petal" style="left: 85%; animation-delay: 3s;"></div>
-    <div class="petal" style="left: 20%; animation-delay: 5s;"></div>
-    <div class="petal" style="left: 60%; animation-delay: 6s;"></div>
-    <div class="petal" style="left: 40%; animation-delay: 7s;"></div>
 
     <div class="container">
         <div id="text-content"></div>
@@ -273,70 +121,57 @@ And no matter where we stand now, I genuinely hope today brings you warmth, love
 <final>Happy Valentine's Day My Akudo ❤️</final>`;
 
         const contentDiv = document.getElementById('text-content');
-        let index = 0;
+        const words = text.split(' ');
+        let wordIndex = 0;
         let currentP = document.createElement('p');
         contentDiv.appendChild(currentP);
 
-        function typeText() {
-            if (index < text.length) {
-                const char = text[index];
+        function typeWords() {
+            if (wordIndex < words.length) {
+                let word = words[wordIndex];
                 
-                // Handle special tags
-                if (text.substr(index, 6) === '<love>') {
-                    const loveP = document.createElement('p');
-                    loveP.className = 'love-text';
-                    contentDiv.appendChild(loveP);
-                    currentP = loveP;
-                    index += 6;
-                    typeText();
-                    return;
-                } else if (text.substr(index, 7) === '</love>') {
+                if (word.includes('<love>')) {
                     currentP = document.createElement('p');
+                    currentP.className = 'love-text';
                     contentDiv.appendChild(currentP);
-                    index += 7;
-                    typeText();
-                    return;
-                } else if (text.substr(index, 7) === '<final>') {
-                    const finalP = document.createElement('p');
-                    finalP.className = 'final-message';
-                    contentDiv.appendChild(finalP);
-                    currentP = finalP;
-                    index += 7;
-                    typeText();
-                    return;
-                } else if (text.substr(index, 8) === '</final>') {
-                    index += 8;
-                    typeText();
-                    return;
-                }
-                
-                // Handle new paragraphs
-                if (char === '\n' && text[index + 1] === '\n') {
+                    word = word.replace('<love>', '');
+                } else if (word.includes('</love>')) {
+                    word = word.replace('</love>', '');
+                    setTimeout(() => {
+                        currentP = document.createElement('p');
+                        contentDiv.appendChild(currentP);
+                    }, 100);
+                } else if (word.includes('<final>')) {
                     currentP = document.createElement('p');
+                    currentP.className = 'final-message';
                     contentDiv.appendChild(currentP);
-                    index += 2;
-                } else if (char === '\n') {
-                    currentP.appendChild(document.createElement('br'));
-                    index++;
-                } else {
-                    currentP.appendChild(document.createTextNode(char));
-                    index++;
+                    word = word.replace('<final>', '');
                 }
+
+                currentP.innerHTML += word + ' ';
+                wordIndex++;
                 
-                // Add cursor
-                const cursor = document.createElement('span');
-                cursor.className = 'cursor';
-                currentP.appendChild(cursor);
+                // Scrolling for mobile
+                window.scrollTo(0, document.body.scrollHeight);
                 
-                setTimeout(() => {
-                    cursor.remove();
-                    typeText();
-                }, 50); // Typing speed
+                setTimeout(typeWords, 200); // Speed per word
             }
         }
 
-        // Start typing after a brief delay
-        setTimeout(typeText, 500);
+        // Create petals
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.className = 'petal';
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.width = Math.random() * 15 + 10 + 'px';
+            petal.style.height = petal.style.width;
+            petal.style.animationDuration = Math.random() * 3 + 5 + 's';
+            document.body.appendChild(petal);
+            setTimeout(() => petal.remove(), 8000);
+        }
+
+        setInterval(createPetal, 300);
+        setTimeout(typeWords, 1000);
     </script>
 </body>
 </html>
