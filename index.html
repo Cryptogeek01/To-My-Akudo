@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Akudo</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle at center, #4a0404 0%, #2b0000 45%, #050000 100%);
+            background-attachment: fixed;
+            color: #fce4ec;
+            font-family: 'Crimson Pro', serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 40px 25px;
+        }
+
+        /* The Heartbeat Background Pulse */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, rgba(255, 77, 109, 0.05) 0%, transparent 70%);
+            animation: heartbeat 4s ease-in-out infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.1); }
+        }
+
+        .letter-container {
+            max-width: 600px;
+            width: 100%;
+            z-index: 2;
+            position: relative;
+        }
+
+        .text-line {
+            opacity: 0;
+            margin-bottom: 28px;
+            font-size: 1.3rem;
+            line-height: 1.8;
+            letter-spacing: 0.02em;
+            /* Text shadow to make it feel "glowy" on the dark red */
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        /* Animation for the reveal */
+        .fade-in {
+            animation: fadeInBlur 3s ease-out forwards;
+        }
+
+        @keyframes fadeInBlur {
+            from {
+                opacity: 0;
+                filter: blur(5px);
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                filter: blur(0);
+                transform: translateY(0);
+            }
+        }
+
+        .highlight {
+            color: #ff4d6d;
+            font-size: 1.6rem;
+            font-weight: 400;
+        }
+
+        .signature {
+            margin-top: 60px;
+            font-size: 1.6rem;
+            border-top: 1px solid rgba(255, 77, 109, 0.2);
+            padding-top: 30px;
+            font-style: italic;
+        }
+
+        .heart-icon {
+            display: inline-block;
+            color: #ff4d6d;
+            animation: pulse 1.5s infinite;
+            margin-left: 5px;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.25); }
+            100% { transform: scale(1); }
+        }
+
+        /* Floating particles */
+        .floating-heart {
+            position: fixed;
+            color: rgba(255, 77, 109, 0.4);
+            user-select: none;
+            pointer-events: none;
+            z-index: 1;
+            animation: float Up 10s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="letter-container">
+        <div class="text-line fade-in" style="animation-delay: 1.5s;">Hi…</div>
+
+        <div class="text-line fade-in" style="animation-delay: 4.5s;">
+            I know it’s Valentine’s Day, and we never really made a big deal out of it when we were together. But today feels “heavier” than I expected.
+        </div>
+
+        <div class="text-line fade-in" style="animation-delay: 9s;">
+            I miss you. Not just today, I miss you every single day. It’s the quiet moments that hurt the most. The random thoughts of you. The memories that show up uninvited and without a warning. Some days I handle it well… other days it overwhelms me.
+        </div>
+
+        <div class="text-line fade-in" style="animation-delay: 15s;">
+            I’m not doing this to reopen old wounds or make things complicated. I just couldn’t let today pass without telling you something that’s still true for me.
+        </div>
+
+        <div class="text-line fade-in highlight" style="animation-delay: 19s;">
+            I love you.
+        </div>
+
+        <div class="text-line fade-in" style="animation-delay: 22s;">
+            And no matter where we stand now, I genuinely hope today brings you warmth, love, and happiness.
+        </div>
+
+        <div class="text-line fade-in signature" style="animation-delay: 26s;">
+            Happy Valentine’s Day My Akudo <span class="heart-icon">❤️</span>
+        </div>
+    </div>
+
+    <script>
+        // Create subtle floating hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            heart.innerHTML = '❤';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = (Math.random() * 10 + 10) + 'px';
+            heart.style.animationDuration = (Math.random() * 5 + 10) + 's';
+            heart.style.opacity = Math.random() * 0.5;
+            
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 15000);
+        }
+
+        // Generate hearts periodically
+        setInterval(createHeart, 800);
+    </script>
+</body>
+</html>
