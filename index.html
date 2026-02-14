@@ -3,175 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Akudo</title>
+    <title>For My Akudo</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@0,400;1,400&display=swap');
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background: radial-gradient(circle at center, #4a0404 0%, #2b0000 45%, #050000 100%);
-            background-attachment: fixed;
-            color: #fce4ec;
-            font-family: 'Crimson Pro', serif;
-            min-height: 100vh;
+            /* Background matches the red-to-white gradient in the image */
+            background: radial-gradient(circle, #ffeded 0%, #f8c0c0 40%, #d62828 100%);
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow-x: hidden;
-            padding: 40px 25px;
+            font-family: 'Playfair Display', serif;
+            overflow: hidden;
+            color: #2c0000;
+            text-align: center;
         }
 
-        /* The Heartbeat Background Pulse */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, rgba(255, 77, 109, 0.05) 0%, transparent 70%);
-            animation: heartbeat 4s ease-in-out infinite;
-            z-index: 0;
-            pointer-events: none;
+        /* Container for the text */
+        .content {
+            max-width: 800px;
+            padding: 2rem;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(5px);
+            border-radius: 20px;
         }
 
-        @keyframes heartbeat {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 0.6; transform: scale(1.1); }
-        }
-
-        .letter-container {
-            max-width: 600px;
-            width: 100%;
-            z-index: 2;
-            position: relative;
-        }
-
-        .text-line {
-            opacity: 0;
-            margin-bottom: 28px;
-            font-size: 1.3rem;
+        #typewriter {
+            font-size: 1.4rem;
             line-height: 1.8;
-            letter-spacing: 0.02em;
-            /* Text shadow to make it feel "glowy" on the dark red */
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            min-height: 300px;
         }
 
-        /* Animation for the reveal */
-        .fade-in {
-            animation: fadeInBlur 3s ease-out forwards;
-        }
-
-        @keyframes fadeInBlur {
-            from {
-                opacity: 0;
-                filter: blur(5px);
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                filter: blur(0);
-                transform: translateY(0);
-            }
-        }
-
-        .highlight {
-            color: #ff4d6d;
-            font-size: 1.6rem;
-            font-weight: 400;
-        }
-
-        .signature {
-            margin-top: 60px;
-            font-size: 1.6rem;
-            border-top: 1px solid rgba(255, 77, 109, 0.2);
-            padding-top: 30px;
-            font-style: italic;
-        }
-
-        .heart-icon {
+        .word {
             display: inline-block;
-            color: #ff4d6d;
-            animation: pulse 1.5s infinite;
-            margin-left: 5px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s ease;
+            margin-right: 5px;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.25); }
-            100% { transform: scale(1); }
+        .word.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        /* Floating particles */
-        .floating-heart {
+        .special-line {
+            display: block;
+            margin-top: 20px;
+            font-size: 2.2rem;
+            color: #a30000;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        /* Falling Roses and Hearts */
+        .falling-item {
             position: fixed;
-            color: rgba(255, 77, 109, 0.4);
-            user-select: none;
-            pointer-events: none;
+            top: -50px;
             z-index: 1;
-            animation: float Up 10s linear infinite;
+            pointer-events: none;
+            animation: fall linear forwards;
         }
 
-        @keyframes floatUp {
-            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="letter-container">
-        <div class="text-line fade-in" style="animation-delay: 1.5s;">Hi…</div>
-
-        <div class="text-line fade-in" style="animation-delay: 4.5s;">
-            I know it’s Valentine’s Day, and we never really made a big deal out of it when we were together. But today feels “heavier” than I expected.
-        </div>
-
-        <div class="text-line fade-in" style="animation-delay: 9s;">
-            I miss you. Not just today, I miss you every single day. It’s the quiet moments that hurt the most. The random thoughts of you. The memories that show up uninvited and without a warning. Some days I handle it well… other days it overwhelms me.
-        </div>
-
-        <div class="text-line fade-in" style="animation-delay: 15s;">
-            I’m not doing this to reopen old wounds or make things complicated. I just couldn’t let today pass without telling you something that’s still true for me.
-        </div>
-
-        <div class="text-line fade-in highlight" style="animation-delay: 19s;">
-            I love you.
-        </div>
-
-        <div class="text-line fade-in" style="animation-delay: 22s;">
-            And no matter where we stand now, I genuinely hope today brings you warmth, love, and happiness.
-        </div>
-
-        <div class="text-line fade-in signature" style="animation-delay: 26s;">
-            Happy Valentine’s Day My Akudo <span class="heart-icon">❤️</span>
-        </div>
+    <div class="content">
+        <div id="typewriter"></div>
     </div>
 
     <script>
-        // Create subtle floating hearts
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('floating-heart');
-            heart.innerHTML = '❤';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.fontSize = (Math.random() * 10 + 10) + 'px';
-            heart.style.animationDuration = (Math.random() * 5 + 10) + 's';
-            heart.style.opacity = Math.random() * 0.5;
-            
-            document.body.appendChild(heart);
-            
-            setTimeout(() => {
-                heart.remove();
-            }, 15000);
+        const message = `Hi… <br><br> I know it’s Valentine’s Day, and we never really made a big deal out of it when we were together. But today feels “heavier” than I expected. <br><br> I miss you. Not just today, I miss you every single day. It’s the quiet moments that hurt the most. The random thoughts of you. The memories that show up uninvited and without a warning. Some days I handle it well… other days it overwhelms me. <br><br> I’m not doing this to reopen old wounds or make things complicated. I just couldn’t let today pass without telling you something that’s still true for me. <br><br> <span class="special-line">I love you.</span> <br><br> And no matter where we stand now, I genuinely hope today brings you warmth, love, and happiness. <br><br> <span class="special-line">Happy Valentine’s Day My Akudo ❤️</span>`;
+
+        const container = document.getElementById('typewriter');
+        
+        // Split by words while keeping HTML tags intact
+        const words = message.split(/(\s+|<br>|<span.*?>|<\/span>)/).filter(w => w.trim().length > 0 || w === '<br>');
+
+        words.forEach((word, index) => {
+            if (word === '<br>') {
+                const br = document.createElement('br');
+                container.appendChild(br);
+            } else if (word.startsWith('<span')) {
+                // Simplified handling for the special lines
+                const spanContent = words[index + 1];
+                const span = document.createElement('span');
+                span.className = 'word special-line';
+                span.innerHTML = spanContent;
+                container.appendChild(span);
+                words[index + 1] = ''; // skip next
+            } else if (word !== '' && !word.startsWith('</')) {
+                const span = document.createElement('span');
+                span.className = 'word';
+                span.innerText = word;
+                container.appendChild(span);
+            }
+        });
+
+        const wordElements = document.querySelectorAll('.word');
+        let i = 0;
+
+        function type() {
+            if (i < wordElements.length) {
+                wordElements[i].classList.add('visible');
+                i++;
+                setTimeout(type, 250); // Speed of word typing
+            }
         }
 
-        // Generate hearts periodically
-        setInterval(createHeart, 800);
+        // Falling items generator (Roses and Hearts)
+        function createFallingItem() {
+            const item = document.createElement('div');
+            item.className = 'falling-item';
+            
+            const types = ['🌹', '🖤', '❤️', '🥀', '🤍'];
+            item.innerText = types[Math.floor(Math.random() * types.length)];
+            
+            item.style.left = Math.random() * 100 + 'vw';
+            item.style.fontSize = Math.random() * 20 + 20 + 'px';
+            item.style.animationDuration = Math.random() * 3 + 5 + 's';
+            item.style.opacity = Math.random();
+
+            document.body.appendChild(item);
+
+            setTimeout(() => { item.remove(); }, 8000);
+        }
+
+        setInterval(createFallingItem, 300);
+        window.onload = type;
     </script>
 </body>
 </html>
