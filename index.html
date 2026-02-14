@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,141 +6,156 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For My Akudo</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@0,400;1,400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@0,400;1,500&display=swap');
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            /* Background matches the red-to-white gradient in the image */
-            background: radial-gradient(circle, #ffeded 0%, #f8c0c0 40%, #d62828 100%);
-            height: 100vh;
+            /* Exact gradient from your reference image */
+            background: radial-gradient(circle, #ffffff 0%, #f9dcdc 30%, #e63946 80%, #9b1c1c 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             font-family: 'Playfair Display', serif;
-            overflow: hidden;
-            color: #2c0000;
-            text-align: center;
+            overflow-x: hidden;
+            color: #331111;
+            padding: 20px;
         }
 
-        /* Container for the text */
-        .content {
-            max-width: 800px;
-            padding: 2rem;
+        /* Responsive Container */
+        .letter-box {
+            position: relative;
             z-index: 10;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(5px);
-            border-radius: 20px;
+            width: 100%;
+            max-width: 500px; /* Constrains width so it looks like a card on phone */
+            text-align: center;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+            padding: 30px 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
         #typewriter {
-            font-size: 1.4rem;
-            line-height: 1.8;
-            min-height: 300px;
+            font-size: clamp(1rem, 4vw, 1.25rem); /* Dynamic font size for mobile */
+            line-height: 1.7;
+            word-spacing: 2px;
         }
 
+        /* Word-by-word animation */
         .word {
             display: inline-block;
             opacity: 0;
+            filter: blur(5px);
             transform: translateY(10px);
-            transition: all 0.4s ease;
-            margin-right: 5px;
+            transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+            margin-right: 4px;
         }
 
         .word.visible {
             opacity: 1;
+            filter: blur(0);
             transform: translateY(0);
         }
 
-        .special-line {
+        .highlight-love {
             display: block;
-            margin-top: 20px;
-            font-size: 2.2rem;
-            color: #a30000;
             font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            color: #b91d1d;
+            margin: 15px 0;
         }
 
-        /* Falling Roses and Hearts */
-        .falling-item {
+        .signature {
+            display: block;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            margin-top: 30px;
+            color: #b91d1d;
+        }
+
+        /* Decorative Elements */
+        .decor {
             position: fixed;
-            top: -50px;
-            z-index: 1;
             pointer-events: none;
-            animation: fall linear forwards;
+            z-index: 1;
+            user-select: none;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
         }
 
-        @keyframes fall {
-            to {
-                transform: translateY(110vh) rotate(360deg);
-            }
+        @keyframes float {
+            0% { transform: translateY(110vh) rotate(0deg) scale(0.8); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg) scale(1.1); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
-    <div class="content">
+    <div class="letter-box">
         <div id="typewriter"></div>
     </div>
 
     <script>
-        const message = `Hi… <br><br> I know it’s Valentine’s Day, and we never really made a big deal out of it when we were together. But today feels “heavier” than I expected. <br><br> I miss you. Not just today, I miss you every single day. It’s the quiet moments that hurt the most. The random thoughts of you. The memories that show up uninvited and without a warning. Some days I handle it well… other days it overwhelms me. <br><br> I’m not doing this to reopen old wounds or make things complicated. I just couldn’t let today pass without telling you something that’s still true for me. <br><br> <span class="special-line">I love you.</span> <br><br> And no matter where we stand now, I genuinely hope today brings you warmth, love, and happiness. <br><br> <span class="special-line">Happy Valentine’s Day My Akudo ❤️</span>`;
+        const message = "Hi… <br><br> I know it’s Valentine’s Day, and we never really made a big deal out of it when we were together. But today feels “heavier” than I expected. <br><br> I miss you. Not just today, I miss you every single day. It’s the quiet moments that hurt the most. The random thoughts of you. The memories that show up uninvited and without a warning. Some days I handle it well… other days it overwhelms me. <br><br> I’m not doing this to reopen old wounds or make things complicated. I just couldn’t let today pass without telling you something that’s still true for me. <br><br> <span class='highlight-love'>I love you.</span> <br><br> And no matter where we stand now, I genuinely hope today brings you warmth, love, and happiness. <br><br> <span class='signature'>Happy Valentine’s Day My Akudo ❤️</span>";
 
         const container = document.getElementById('typewriter');
         
-        // Split by words while keeping HTML tags intact
-        const words = message.split(/(\s+|<br>|<span.*?>|<\/span>)/).filter(w => w.trim().length > 0 || w === '<br>');
+        // Process message into words and breaks
+        const parts = message.split(/(\s+|<br>|<span.*?>|<\/span>)/).filter(p => p.trim() !== '' || p === ' ');
 
-        words.forEach((word, index) => {
-            if (word === '<br>') {
-                const br = document.createElement('br');
-                container.appendChild(br);
-            } else if (word.startsWith('<span')) {
-                // Simplified handling for the special lines
-                const spanContent = words[index + 1];
-                const span = document.createElement('span');
-                span.className = 'word special-line';
-                span.innerHTML = spanContent;
-                container.appendChild(span);
-                words[index + 1] = ''; // skip next
-            } else if (word !== '' && !word.startsWith('</')) {
+        parts.forEach(part => {
+            if (part === '<br>') {
+                container.appendChild(document.createElement('br'));
+            } else if (part.includes('<span')) {
+                // Pass through
+            } else if (part.includes('</span')) {
+                // Pass through
+            } else {
                 const span = document.createElement('span');
                 span.className = 'word';
-                span.innerText = word;
+                // Apply cursive if it belongs to a special section
+                if (message.includes(`highlight-love'>${part}`) || message.includes(`signature'>${part}`)) {
+                    span.style.fontFamily = "'Dancing Script', cursive";
+                    span.style.fontSize = "2rem";
+                    span.style.color = "#b91d1d";
+                }
+                span.innerText = part;
                 container.appendChild(span);
             }
         });
 
-        const wordElements = document.querySelectorAll('.word');
-        let i = 0;
+        const wordSpans = document.querySelectorAll('.word');
+        let index = 0;
 
-        function type() {
-            if (i < wordElements.length) {
-                wordElements[i].classList.add('visible');
-                i++;
-                setTimeout(type, 250); // Speed of word typing
+        function showNextWord() {
+            if (index < wordSpans.length) {
+                wordSpans[index].classList.add('visible');
+                index++;
+                setTimeout(showNextWord, 200); // 200ms per word for natural reading
             }
         }
 
-        // Falling items generator (Roses and Hearts)
-        function createFallingItem() {
-            const item = document.createElement('div');
-            item.className = 'falling-item';
+        // Falling Decor: Hearts, Red Roses, Black Roses
+        function spawnDecor() {
+            const decor = document.createElement('div');
+            decor.className = 'decor';
+            const items = ['❤️', '🌹', '🖤', '🥀', '🤍', '💖'];
+            decor.innerText = items[Math.floor(Math.random() * items.length)];
             
-            const types = ['🌹', '🖤', '❤️', '🥀', '🤍'];
-            item.innerText = types[Math.floor(Math.random() * types.length)];
+            decor.style.left = Math.random() * 100 + 'vw';
+            decor.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            decor.style.animation = `float ${Math.random() * 5 + 7}s linear forwards`;
             
-            item.style.left = Math.random() * 100 + 'vw';
-            item.style.fontSize = Math.random() * 20 + 20 + 'px';
-            item.style.animationDuration = Math.random() * 3 + 5 + 's';
-            item.style.opacity = Math.random();
-
-            document.body.appendChild(item);
-
-            setTimeout(() => { item.remove(); }, 8000);
+            document.body.appendChild(decor);
+            setTimeout(() => decor.remove(), 12000);
         }
 
-        setInterval(createFallingItem, 300);
-        window.onload = type;
+        setInterval(spawnDecor, 400);
+        window.onload = showNextWord;
     </script>
 </body>
 </html>
